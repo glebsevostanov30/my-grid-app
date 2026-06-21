@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.4.0",
     "@glideapps/glide-data-grid": "^6.0.3",
     "axios": "^1.17.0",
     "lodash": "^4.18.1",
     "marked": "^18.0.5",
-    "react": "^19.2.6",
+    "pusher-js": "^8.5.0",
+    "react": "^19.2.7",
     "react-dom": "^19.2.6",
+    "react-resize-detector": "^12.3.0",
     "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
