@@ -6,14 +6,9 @@
     type Item,
     type Theme
 } from "@glideapps/glide-data-grid";
-import React, {useCallback, useRef, useState} from "react";
-
-const generateColumns = (count: number): GridColumn[] =>
-    Array.from({length: count}, (_, i) => ({
-        title: `Column ${i + 1}`,
-        id: `col${i}`,
-        width: 120,
-    }));
+import React, {useCallback, useEffect, useRef, useState} from "react";
+import {getCell, getCountRows, getInfo, getRows} from "./service/DataTable.ts";
+import type {RowCountResponse} from "./type/DataTableApi.ts";
 
 const getMockCellContent = ([col, row]: Item) => ({
     kind: GridCellKind.Text,
@@ -34,14 +29,14 @@ function useSimpleUndoRedo(
 
     const onCellEdited = useCallback((cell: Item, newValue: any) => {
         const oldValue = getCellContent(cell);
-        setHistory(prev => [...prev, { cell, oldValue, newValue }]);
+        setHistory(prev => [...prev, {cell, oldValue, newValue}]);
         setRedoStack([]);
 
         // Меняем данные
         setCellValue(cell, newValue);
 
         // Говорим таблице перерисовать конкретную ячейку
-        gridRef.current?.updateCells([{ cell }]);
+        gridRef.current?.updateCells([{cell}]);
     }, [getCellContent, setCellValue]);
 
     const undo = useCallback(() => {
@@ -51,7 +46,7 @@ function useSimpleUndoRedo(
         setHistory(prev => prev.slice(0, -1));
 
         setCellValue(last.cell, last.oldValue);
-        gridRef.current?.updateCells([{ cell: last.cell }]);
+        gridRef.current?.updateCells([{cell: last.cell}]);
     }, [history, setCellValue]);
 
     const redo = useCallback(() => {
@@ -61,7 +56,7 @@ function useSimpleUndoRedo(
         setRedoStack(prev => prev.slice(0, -1));
 
         setCellValue(last.cell, last.newValue);
-        gridRef.current?.updateCells([{ cell: last.cell }]);
+        gridRef.current?.updateCells([{cell: last.cell}]);
     }, [redoStack, setCellValue]);
 
     return {
@@ -78,8 +73,26 @@ function useSimpleUndoRedo(
 
 export function DataGridWithUndo() {
     const gridRef = useRef<DataEditorRef>(null);
-    const columns = generateColumns(10);
-    const rows = 1_000_000;
+
+    const [columns, setColumns] = useState<GridColumn[]>([]);
+    const [rowCount, setRowCount] = useState<RowCountResponse>({count: 0});
+
+    useEffect(() => {
+        getInfo()
+            .then((data) => {
+                setColumns(data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        getCountRows()
+            .then((data) =>{
+                setRowCount(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, []);
 
     // Хранилище данных ячеек (ключ "col,row" -> GridCell)
     const [cellData, setCellData] = useState<Map<string, any>>(new Map());
@@ -142,7 +155,7 @@ export function DataGridWithUndo() {
                 <DataEditor
                     ref={gridRef}
                     columns={columns}
-                    rows={rows}
+                    rows={rowCount.count}
                     getCellContent={getCellContent}
                     onCellEdited={onCellEdited}
                     gridSelection={gridSelection}
