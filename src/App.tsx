@@ -1,9 +1,9 @@
 ﻿// import {UndoRedo} from "./stories/use-data-source.stories.tsx";
 import '@glideapps/glide-data-grid/dist/index.css';
-import {DataGridWithUndo} from "./DataGridWithUndo.tsx";
+import {TableGrid} from "./TableGridComponent.tsx";
 
 function App() {
-    return <DataGridWithUndo />;
+    return <TableGrid />;
 }
 
 export default App;

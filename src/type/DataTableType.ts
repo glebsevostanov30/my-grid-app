@@ -15,11 +15,3 @@ export interface RowData {
 export interface RowCountResponse {
     count: number
 }
-
-export interface CellData {
-    kind: string
-    data: string
-    displayData: string
-    allowOverlay: boolean
-    readonly: boolean
-}

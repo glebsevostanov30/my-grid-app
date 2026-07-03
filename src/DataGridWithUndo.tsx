@@ -7,8 +7,8 @@
     type Theme
 } from "@glideapps/glide-data-grid";
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {getCell, getCountRows, getInfo, getRows} from "./service/DataTable.ts";
-import type {RowCountResponse} from "./type/DataTableApi.ts";
+import {getCountRows, getColumns} from "./service/DataTableService.ts";
+import type {RowCountResponse} from "./type/DataTableType.ts";
 
 const getMockCellContent = ([col, row]: Item) => ({
     kind: GridCellKind.Text,
@@ -78,7 +78,7 @@ export function DataGridWithUndo() {
     const [rowCount, setRowCount] = useState<RowCountResponse>({count: 0});
 
     useEffect(() => {
-        getInfo()
+        getColumns()
             .then((data) => {
                 setColumns(data);
             })
