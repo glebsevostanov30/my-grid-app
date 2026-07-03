@@ -1,0 +1,228 @@
+﻿.uploader-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.drop-zone {
+    border: 2px dashed #bbb;
+    border-radius: 20px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    background: #fafafa;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.drop-zone:hover {
+    background: #f0f0f0;
+}
+
+.drop-zone.dragging {
+    border-color: #4a90d9;
+    background: #e1edff;
+    transform: scale(1.01);
+}
+
+.drop-zone.success {
+    border-color: #28a745;
+    background: #e6f9ed;
+}
+
+.drop-icon {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.drop-text {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.browse-link {
+    color: #4a90d9;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.drop-hint {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.2rem;
+}
+
+.drop-active p {
+    margin: 0.2rem 0;
+}
+
+/* Список файлов */
+.file-list {
+    margin: 1.2rem 0;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-right: 1rem;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-size {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #999;
+    cursor: pointer;
+    padding: 0 0.3rem;
+    transition: color 0.2s;
+}
+
+.remove-btn:hover {
+    color: #d9534f;
+}
+
+.file-status.success {
+    font-size: 1.2rem;
+}
+
+/* Прогресс-бар */
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4a90d9, #6fb3f0);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-weight: 600;
+    color: #4a90d9;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Кнопки и сообщения */
+.actions {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.btn-primary {
+    background: #4a90d9;
+    color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #357abd;
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #dde0e3;
+}
+
+.btn-danger {
+    background: #d9534f;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #c9302c;
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #d4edda;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    color: #155724;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f8d7da;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    color: #721c24;
+}
+
+.error-message .btn-secondary {
+    background: #f5c6cb;
+    color: #721c24;
+}
+
+.error-message .btn-secondary:hover {
+    background: #f1b0b7;
+}
