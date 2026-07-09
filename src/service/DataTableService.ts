@@ -1,5 +1,10 @@
 ﻿import axios from 'axios';
-import type {RowData, RowCountResponse} from '../type/DataTableType.ts';
+import type {
+    RowData,
+    RowCountResponse,
+    UploadFileRequest,
+    UploadFileResponse
+} from '../type/DataTableType.ts';
 import type {GridColumn} from "@glideapps/glide-data-grid";
 
 const apiClient = axios.create({
@@ -15,7 +20,7 @@ export async function getRows(skip: number, take: number) {
         return response.data;
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
-        throw new Error("Ошибка при получении данных:", { cause: error });
+        throw new Error("Ошибка при получении данных:", {cause: error});
     }
 
 }
@@ -27,7 +32,7 @@ export async function getColumns(): Promise<GridColumn[]> {
         return response.data;
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
-        throw new Error("Ошибка при получении данных:", { cause: error });
+        throw new Error("Ошибка при получении данных:", {cause: error});
     }
 }
 
@@ -38,6 +43,32 @@ export async function getCountRows(): Promise<RowCountResponse> {
         return response.data;
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
-        throw new Error("Ошибка при получении данных:", { cause: error });
+        throw new Error("Ошибка при получении данных:", {cause: error});
+    }
+}
+
+export async function uploadFile(uploadFile: UploadFileRequest): Promise<UploadFileResponse> {
+    try {
+        const response = await apiClient.post<UploadFileResponse>('/Upload',
+            uploadFile.data,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.total) {
+                        const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        if (uploadFile.onProgress) {
+                            uploadFile.onProgress(percent);
+                        }
+                    }
+                },
+                cancelToken: uploadFile.cancelToken
+            });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка при загрузке файла:', error);
+        throw new Error("Ошибка при загрузке файла:", {cause: error});
     }
 }
